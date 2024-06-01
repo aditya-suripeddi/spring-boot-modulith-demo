@@ -1,12 +1,14 @@
 package com.sivalabs.bookstore.orders.domain;
 
 import com.sivalabs.bookstore.catalog.domain.ProductService;
+import com.sivalabs.bookstore.orders.domain.events.OrderCreatedEvent;
 import com.sivalabs.bookstore.orders.domain.models.CreateOrderRequest;
 import com.sivalabs.bookstore.orders.domain.models.CreateOrderResponse;
 import com.sivalabs.bookstore.orders.domain.models.OrderDTO;
 import com.sivalabs.bookstore.orders.domain.models.OrderSummary;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,12 +23,19 @@ import java.util.Optional;
 public class OrderService {
     private final OrderRepository orderRepository;
     private final ProductService productService;
+    private final ApplicationEventPublisher eventPublisher;
 
     public CreateOrderResponse createOrder(CreateOrderRequest request) {
         validate(request);
         OrderEntity newOrder = OrderMapper.convertToEntity(request);
         OrderEntity savedOrder = this.orderRepository.save(newOrder);
         log.info("Created Order with orderNumber={}", savedOrder.getOrderNumber());
+        OrderCreatedEvent event = new OrderCreatedEvent(
+                savedOrder.getOrderNumber(),
+                savedOrder.getOrderItem().code(),
+                savedOrder.getOrderItem().quantity()
+        );
+        eventPublisher.publishEvent(event);
         return new CreateOrderResponse(savedOrder.getOrderNumber());
     }
 
