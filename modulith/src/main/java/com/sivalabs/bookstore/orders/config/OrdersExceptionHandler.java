@@ -1,6 +1,5 @@
-package com.sivalabs.bookstore.config;
+package com.sivalabs.bookstore.orders.config;
 
-import com.sivalabs.bookstore.catalog.domain.ProductNotFoundException;
 import com.sivalabs.bookstore.orders.domain.InvalidOrderException;
 import com.sivalabs.bookstore.orders.domain.OrderNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -12,15 +11,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import java.time.Instant;
 
 @RestControllerAdvice
-class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
-
-    @ExceptionHandler(ProductNotFoundException.class)
-    ProblemDetail handle(ProductNotFoundException e) {
-        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, e.getMessage());
-        problemDetail.setTitle("Product Not Found");
-        problemDetail.setProperty("timestamp", Instant.now());
-        return problemDetail;
-    }
+class OrdersExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(OrderNotFoundException.class)
     ProblemDetail handle(OrderNotFoundException e) {

@@ -1,8 +1,8 @@
 package com.sivalabs.bookstore.catalog.web.controllers;
 
-import com.sivalabs.bookstore.catalog.domain.Product;
+import com.sivalabs.bookstore.catalog.Product;
 import com.sivalabs.bookstore.catalog.domain.ProductNotFoundException;
-import com.sivalabs.bookstore.catalog.domain.ProductService;
+import com.sivalabs.bookstore.catalog.ProductService;
 import com.sivalabs.bookstore.common.models.PagedResult;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

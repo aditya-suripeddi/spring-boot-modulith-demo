@@ -3,7 +3,7 @@ package com.sivalabs.bookstore.catalog.web.controllers;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.modulith.test.ApplicationModuleTest;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -13,7 +13,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest(webEnvironment = RANDOM_PORT)
+@ApplicationModuleTest(webEnvironment = RANDOM_PORT)
 @AutoConfigureMockMvc
 @Sql("/test-products-data.sql")
 class ProductControllerTests {

@@ -1,6 +1,8 @@
 package com.sivalabs.bookstore.catalog.domain;
 
 import com.sivalabs.bookstore.ApplicationProperties;
+import com.sivalabs.bookstore.catalog.Product;
+import com.sivalabs.bookstore.catalog.ProductService;
 import com.sivalabs.bookstore.common.models.PagedResult;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,12 +15,12 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class ProductService {
+public class ProductServiceImpl implements ProductService {
     private final ProductRepository repo;
     private final ApplicationProperties props;
 
-    ProductService(ProductRepository repo,
-                   ApplicationProperties props) {
+    ProductServiceImpl(ProductRepository repo,
+                       ApplicationProperties props) {
         this.repo = repo;
         this.props = props;
     }
